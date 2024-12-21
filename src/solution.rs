@@ -1,4 +1,5 @@
-pub mod day01;
+mod day01;
+mod day02;
 
 pub fn day01() {
     let path = "src/input/day01.txt";
@@ -12,4 +13,15 @@ pub fn day01() {
 
     let similarity = day01::find_similarity(&list1, &list2);
     println!("The solution to Part 2 is: {}", similarity);
+}
+
+pub fn day02() {
+    let path = "src/input/day02.txt";
+    let reports = day02::parse_input(path);
+    
+    let num_safe = day02::get_num_safe(&reports);
+    println!("The solution to Part 1 is: {}", num_safe);
+
+    let num_safe_dampened = day02::get_num_safe_dampened(&reports);
+    println!("The solution to Part 2 is: {}", num_safe_dampened);
 }
