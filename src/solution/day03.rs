@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 use regex::Regex;
 
-pub fn parse_line(line: &str) -> i32 {
+fn parse_line(line: &str) -> i32 {
     let re: Regex = Regex::new(r"mul\((\d+),(\d+)\)").unwrap();
 
     let captures = re
@@ -21,7 +21,7 @@ pub fn parse_line(line: &str) -> i32 {
         .sum()
 }
 
-pub fn parse_input(path: &str) -> i32 {
+fn parse_input(path: &str) -> i32 {
     let file = File::open(path).expect("Cannot open file");
     let reader = BufReader::new(file);
 
@@ -41,7 +41,7 @@ enum Operation {
     Dont,
 }
 
-pub fn parse_line_with_conditionals(line: &str) -> Vec<Operation> {
+fn parse_line_with_conditionals(line: &str) -> Vec<Operation> {
     let pattern = r"mul\((\d+),(\d+)\)|do\(\)|don't\(\)";
     let re = Regex::new(pattern).unwrap();
 
@@ -77,7 +77,7 @@ enum State {
     Disabled,
 }
 
-pub fn parse_input_with_conditionals(path: &str) -> i32 {
+fn parse_input_with_conditionals(path: &str) -> i32 {
     let file = File::open(path).expect("Cannot open file");
     let reader = BufReader::new(file);
 
@@ -106,6 +106,20 @@ pub fn parse_input_with_conditionals(path: &str) -> i32 {
     }
 
     result
+}
+
+pub struct Day03;
+
+impl super::Solution for Day03 {
+    fn get_part_one(&self) -> String {
+        let result = parse_input("src/input/day03.txt");
+        result.to_string()
+    }
+
+    fn get_part_two(&self) -> String {
+        let result = parse_input_with_conditionals("src/input/day03.txt");
+        result.to_string()
+    }
 }
 
 #[cfg(test)]

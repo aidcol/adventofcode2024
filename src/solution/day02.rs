@@ -1,7 +1,7 @@
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 
-pub fn parse_input(path: &str) -> Vec<Vec<i32>> {
+fn parse_input(path: &str) -> Vec<Vec<i32>> {
     let mut reports = vec![];
     
     let file = File::open(path).expect("Cannot open file");
@@ -26,7 +26,7 @@ enum Direction {
     Decreasing,
 }
 
-pub fn is_safe(report: &Vec<i32>) -> bool {
+fn is_safe(report: &Vec<i32>) -> bool {
     let mut direction: Option<Direction> = None;
     let mut prev = report[0];
 
@@ -62,7 +62,7 @@ pub fn is_safe(report: &Vec<i32>) -> bool {
     true
 }
 
-pub fn is_safe_dampened(report: &Vec<i32>) -> bool {
+fn is_safe_dampened(report: &Vec<i32>) -> bool {
     if is_safe(report) {
         return true;
     }
@@ -79,18 +79,36 @@ pub fn is_safe_dampened(report: &Vec<i32>) -> bool {
     false
 }
 
-pub fn get_num_safe(reports: &Vec<Vec<i32>>) -> usize {
+fn get_num_safe(reports: &Vec<Vec<i32>>) -> usize {
     reports
         .iter()
         .filter(|report| is_safe(report))
         .count()
 }
 
-pub fn get_num_safe_dampened(reports: &Vec<Vec<i32>>) -> usize {
+fn get_num_safe_dampened(reports: &Vec<Vec<i32>>) -> usize {
     reports
         .iter()
         .filter(|report| is_safe_dampened(report))
         .count()
+}
+
+pub struct Day02;
+
+impl super::Solution for Day02 {
+    fn get_part_one(&self) -> String {
+        let reports = parse_input("src/input/day02.txt");
+        let num_safe = get_num_safe(&reports);
+
+        num_safe.to_string()
+    }
+
+    fn get_part_two(&self) -> String {
+        let reports = parse_input("src/input/day02.txt");
+        let num_safe = get_num_safe_dampened(&reports);
+
+        num_safe.to_string()
+    }
 }
 
 #[cfg(test)]
