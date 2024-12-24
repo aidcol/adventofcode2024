@@ -14,6 +14,10 @@ pub fn run(day: u8) {
             let day03 = solution::day03::Day03;
             solution::run_solution(&day03);
         },
+        4 => {
+            let day04 = solution::day04::Day04;
+            solution::run_solution(&day04);
+        },
         _ => println!("Day {} is not implemented yet", day),
     };
 }
